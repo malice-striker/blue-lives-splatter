@@ -4,60 +4,99 @@
 <meta charset="UTF-8">
 <title>Columbine</title>
 <link rel="stylesheet" href="../style.css">
-
 <style>
-/* CENTER MODULE */
+/* Override/adjust for this page to match 90s blue CRT vibe */
 .hub-module {
     max-width: 520px;
-    margin: 80px auto;
+    margin: 100px auto 40px;
     padding: 20px;
     background: #000;
-    border: 2px solid red;
-    box-shadow: 0 0 30px rgba(255,0,0,0.6); /* eerie glow */
+    border: 2px solid blue;
+    box-shadow: 0 0 30px rgba(0,0,255,0.5);
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-/* CATEGORY HEADERS */
+.hub-module::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,255,0.15) 0px,
+        rgba(0,0,255,0.15) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+}
+
 .hub-module h2 {
-    margin: 18px 0 10px;
+    color: #00aaff;
+    margin: 0 0 20px;
+    text-shadow: 0 0 8px rgba(0,170,255,0.7);
+    font-size: 1.4em;
+    letter-spacing: 1px;
 }
 
-/* BUTTON GRID */
 .hub-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 8px;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin: 0 auto;
+    max-width: 360px;
 }
 
-/* SMALL BUTTONS */
 .hub-module button {
     width: 100%;
-    padding: 4px;
-    font-size: 12px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #55aaff;
+    background: #000022;
+    border: 1px solid #0044ff;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: inset 0 0 6px #000044,
+                0 0 10px rgba(0,68,255,0.4);
+    transition: all 0.15s;
+}
+
+.hub-module button:hover {
+    color: #aaccff;
+    background: #000044;
+    box-shadow: 0 0 18px rgba(0,100,255,0.7),
+                inset 0 0 8px #0044ff;
+    animation: glitch 0.4s infinite;
+}
+
+@keyframes glitch {
+    0%   { transform: translate(0); }
+    20%  { transform: translate(-1px, 1px); }
+    40%  { transform: translate(1px, -1px); }
+    60%  { transform: translate(-1px, 1px); }
+    80%  { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
 }
 </style>
 </head>
 <body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="goodies.html">Goodies</a></li>
+            <li><a href="education.html">Facts & Logic</a></li>
+            <li><a href="organize.html">Get Involved</a></li>
+        </ul>
+    </nav>
+</header>
 
-<!-- NAV HEADER -->
- <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="resources.html">Resources</a></li>
-                <li><a href="goodies.html">Goodies</a></li>
-                <li><a href="education.html">Facts & Logic</a></li>
-               <li><a href="organize.html">Get Involved</a></li>
-            </ul>
-        </nav>
-    </header>
-
-<!-- CENTER MODULE -->
 <div class="page-wrap">
     <div class="hub-module">
-
-        <!-- CRIME -->
         <h2>Trigger Warning</h2>
         <div class="hub-grid">
             <button onclick="location.href='jokes.html'">Jokes</button>
@@ -68,9 +107,7 @@
             <button onclick="location.href='orgs.html'">Direct Action</button>
             <button onclick="location.href='cooldudes.html'">Smart People</button>
         </div>
-
     </div>
 </div>
-    
 </body>
 </html>

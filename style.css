@@ -1,4 +1,4 @@
-/* style.css */
+/* style.css - 90s CRT True Crime Vibe - Fixed & Enhanced */
 
 /* --- Basic page setup --- */
 body {
@@ -8,106 +8,99 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    line-height: 1.4;
 }
 
-/* --- Main container/module --- */
+/* CRT scanlines (full screen overlay) */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        rgba(0,0,0,0.06) 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999; /* on top of everything */
+}
+
+/* Gentle CRT flicker */
+@keyframes screen-flicker {
+    0%, 19%, 21%, 50%, 52%, 100% { opacity: 1; }
+    20%, 51% { opacity: 0.97; }
+}
+body {
+    animation: screen-flicker 3.5s infinite;
+}
+
+/* --- Modules (cards/boxes) --- */
 .module {
     background-color: #000;
-    border: 2px solid blue;
-    box-shadow: 0 0 15px rgba(0, 0, 255, 0.4);
+    border: 2px solid #0000ff;
+    box-shadow: 0 0 15px rgba(0, 0, 255, 0.35),
+                inset 0 0 8px rgba(0, 80, 255, 0.15);
     padding: 20px;
     position: relative;
     overflow: hidden;
     margin: 0;
-    max-width: none;
 }
 
+/* Subtle blue scanline overlay inside modules */
 .module::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-image: repeating-linear-gradient(
         to bottom,
-        rgba(0,0,255,0.2) 0px,
-        rgba(0,0,255,0.2) 3px,
-        transparent 3px,
-        transparent 6px
+        rgba(0,0,255,0.12) 0px,
+        rgba(0,0,255,0.12) 2px,
+        transparent 2px,
+        transparent 4px
     );
     pointer-events: none;
+    z-index: 1;
 }
 
-/* --- Sidebars --- */
-.sidebar {
-    border: 3px double blue;
-    padding: 15px;
-    margin: 10px;
+.module:hover {
+    box-shadow: 0 0 28px rgba(0, 0, 255, 0.6),
+                inset 0 0 12px rgba(0, 100, 255, 0.25);
 }
 
-/* --- Links with glitch effect --- */
+/* --- Links & glitch hover --- */
 a {
-    color: blue;
+    color: #00aaff;
     text-decoration: none;
-    position: relative;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.15s ease;
 }
 
 a:hover {
-    animation: glitch 0.3s infinite;
+    color: #88ccff;
+    animation: glitch 400ms infinite;
+    text-shadow: 0 0 6px rgba(0, 170, 255, 0.7);
 }
 
 @keyframes glitch {
-    0% { text-shadow: 2px 0 blue, -2px 0 cyan; transform: translate(0,0); }
-    20% { text-shadow: -2px -2px blue, 2px 2px cyan; transform: translate(-1px,1px); }
-    40% { text-shadow: 2px 2px blue, -2px -2px cyan; transform: translate(1px,-1px); }
-    60% { text-shadow: -2px 2px blue, 2px -2px cyan; transform: translate(-1px,1px); }
-    80% { text-shadow: 2px -2px blue, -2px 2px cyan; transform: translate(1px,-1px); }
-    100% { text-shadow: 2px 0 blue, -2px 0 cyan; transform: translate(0,0); }
+    0%   { transform: translate(0); }
+    20%  { transform: translate(-1.5px, 1.5px); }
+    40%  { transform: translate(1.5px, -1.5px); }
+    60%  { transform: translate(-1px, 1px); }
+    80%  { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
 }
 
-/* --- CRT scanlines --- */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: repeating-linear-gradient(
-        rgba(0,0,0,0) 0px,
-        rgba(0,0,0,0.05) 1px
-    );
-    pointer-events: none;
-}
-
-/* --- Glitchy background flicker --- */
-@keyframes screen-flicker {
-    0%, 19%, 21%, 50%, 52%, 100% { opacity: 1; }
-    20%, 51% { opacity: 0.95; }
-}
-
-body {
-    animation: screen-flicker 2s infinite;
-}
-
-/* --- Blue glow on hover --- */
-.module:hover {
-    box-shadow: 0 0 25px rgba(0, 0, 255, 0.6);
-}
-
-/* Header navigation */
+/* --- Header navigation --- */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background: #000;
-    border-bottom: 2px solid blue;
-    box-shadow: 0 0 15px rgba(0,0,255,0.4);
-    z-index: 10;
-    padding: 10px 0;
+    border-bottom: 2px solid #0000ff;
+    box-shadow: 0 4px 15px rgba(0,0,255,0.4);
+    z-index: 100;
+    padding: 12px 0;
     text-align: center;
 }
 
@@ -116,106 +109,107 @@ header nav ul {
     padding: 0;
     margin: 0;
     display: inline-flex;
-    gap: 20px;
+    gap: 28px;
+    font-size: 1.1em;
 }
 
 header nav a {
-    color: blue;
-    text-decoration: none;
+    color: #00aaff;
 }
 
 header nav a:hover {
-    animation: glitch 0.3s infinite;
+    animation: glitch 400ms infinite;
 }
 
-/* Sidebar nav */
+/* --- Layout container (sidebar + content) --- */
+.container {
+    display: flex;
+    gap: 24px;
+    max-width: 1240px;
+    margin: 90px auto 40px;   /* extra top margin for fixed header */
+    padding: 0 15px;
+    align-items: stretch;
+}
+
+/* Fix sidebar - prevent squishing */
 .sidebar-nav {
-    width: 180px;
+    flex: 0 0 220px;          /* fixed width, no grow, no shrink */
+    min-width: 220px;         /* enforce minimum */
+    max-width: 260px;
 }
 
+.sidebar-nav.module {
+    padding: 15px 10px;
+}
+
+/* Sidebar links - improved spacing & feel */
 .sidebar-nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .sidebar-nav li {
-    margin: 6px 0;
+    margin: 10px 0;
 }
 
 .sidebar-nav a {
     display: block;
-    padding: 5px;
-    border: 1px solid blue;
-    text-align: center;
-    text-decoration: none;
-    color: blue;
-    box-shadow: 0 0 10px rgba(0,0,255,0.3);
-    transition: all 0.2s ease-in-out;
+    padding: 8px 14px;
+    border: 1px solid #0044cc;
+    background: #000022;
+    color: #55aaff;
+    text-align: left;
+    box-shadow: 0 0 8px rgba(0,0,255,0.25);
+    transition: all 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .sidebar-nav a:hover {
-    color: #fff;
-    box-shadow: 0 0 20px rgba(0,0,255,0.6);
-    animation: glitch 0.3s infinite;
+    background: #000044;
+    color: #ffffff;
+    box-shadow: 0 0 18px rgba(0,100,255,0.7);
+    animation: glitch 400ms infinite;
 }
 
-/* Main content */
+/* Main content area */
 .content-area {
-    flex: 1;
+    flex: 1 1 auto;           /* grow to fill space */
+    min-width: 0;             /* prevents overflow issues with long content */
 }
 
-/* Layout container */
-.container {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: stretch;
-    max-width: 1200px;
-    margin: 80px auto 20px;
-}
-
-.container > .module {
-    margin: 0;
-    max-width: none;
-}
-
-/* Description box */
-.description-box {
-    border: 2px solid blue;
-    padding: 15px;
-    margin-top: 20px;
-    background: #000;
-}
-
+/* Case files styling */
 .case-files {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    margin: 40px 0;
+    gap: 50px;
+    margin: 30px 0;
 }
 
 .case-file {
-    border: 2px solid blue;
-    padding: 20px;
+    border: 2px solid #0000ff;
+    padding: 22px;
     background: #000;
-    box-shadow: 0 0 15px rgba(0,0,255,0.4);
+    box-shadow: 0 0 18px rgba(0,0,255,0.45);
     position: relative;
 }
 
 .case-header {
-    margin: -20px -20px 20px;
-    padding: 12px 20px;
-    background: #000044;
-    border-bottom: 2px solid blue;
-    color: #55aaff;
-    text-shadow: 0 0 6px rgba(85,170,255,0.6);
-    font-size: 1.4em;
+    margin: -22px -22px 24px;
+    padding: 14px 22px;
+    background: #000033;
+    border-bottom: 2px solid #0044ff;
+    color: #66ccff;
+    text-shadow: 0 0 8px rgba(100,180,255,0.6);
+    font-size: 1.45em;
     text-align: center;
 }
 
 .case-image {
     float: left;
-    margin: 0 20px 20px 0;
+    margin: 0 24px 20px 0;
     max-width: 250px;
 }
 
@@ -223,25 +217,40 @@ header nav a:hover {
     width: 100%;
     height: auto;
     border: 2px solid #0044ff;
-    box-shadow: 0 0 12px rgba(0,68,255,0.5);
+    box-shadow: 0 0 14px rgba(0,68,255,0.55);
+}
+
+/* Clearfix for floated images */
+.case-file::after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .case-info-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px 20px;
-    margin: 20px 0;
-    clear: both;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px 24px;
+    margin: 24px 0;
 }
 
 .case-info-grid div {
-    font-size: 0.95em;
-    padding: 6px;
-    border: 1px dashed #0044ff;
-    background: #000022;
+    font-size: 0.97em;
+    padding: 8px 12px;
+    border: 1px dashed #0044aa;
+    background: #000011;
 }
 
 .case-details {
-    line-height: 1.5;
+    line-height: 1.55;
     margin-top: 20px;
+}
+
+/* Description / disclaimer box */
+.description-box {
+    border: 2px solid #0044ff;
+    padding: 16px;
+    margin: 30px 0 10px;
+    background: #000022;
+    font-size: 0.95em;
 }

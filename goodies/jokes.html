@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cop Jokes</title>
+    <link rel="stylesheet" href="style.css">  <!-- or /blue-lives-splatter/style.css if needed -->
+    <style>
+        /* Joke-specific styles – add to your style.css or keep inline for testing */
+        .jokes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin: 100px auto 40px;
+            max-width: 1400px;
+            padding: 0 20px;
+        }
+
+        .joke-module {
+            background: #000;
+            border: 2px solid #0044ff;
+            box-shadow: 0 0 15px rgba(0, 0, 255, 0.3);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .joke-module:hover {
+            box-shadow: 0 0 30px rgba(0, 0, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Police light glow effect (slow alternating blue/red) */
+        .joke-module::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 0, 255, 0.0) 0%,
+                rgba(0, 0, 255, 0.0) 40%,
+                rgba(255, 0, 0, 0.0) 60%,
+                rgba(255, 0, 0, 0.0) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .joke-module:hover::after {
+            opacity: 0.25;  /* subtle – not blinding */
+            animation: police-glow 4s infinite ease-in-out;
+        }
+
+        @keyframes police-glow {
+            0%   { background-position: 0% 50%; opacity: 0.15; }
+            25%  { background-position: 100% 50%; opacity: 0.35; }
+            50%  { background-position: 0% 50%; opacity: 0.25; }
+            75%  { background-position: 100% 50%; opacity: 0.35; }
+            100% { background-position: 0% 50%; opacity: 0.15; }
+        }
+
+        .joke-setup {
+            font-size: 1.2em;
+            margin: 0 0 12px 0;
+            color: #88ccff;
+        }
+
+        .joke-punchline {
+            font-size: 1.1em;
+            color: #ffaaaa;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            margin: 0;
+        }
+
+        .joke-module:hover .joke-punchline {
+            max-height: 200px;  /* adjust based on longest punchline */
+            opacity: 1;
+            margin-top: 15px;
+        }
+
+        /* Optional: tiny glitch on hover for extra 90s vibe */
+        .joke-module:hover .joke-setup {
+            animation: glitch 0.8s infinite alternate;
+        }
+    </style>
+</head>
+<body>
+    <!-- Your header nav here (copy from other pages) -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <!-- etc. -->
+            </ul>
+        </nav>
+    </header>
+
+    <div class="jokes-container">
+        <!-- Example jokes – duplicate this block ~20 times -->
+        <div class="joke-module">
+            <div class="joke-setup">Why do cops love donuts?</div>
+            <div class="joke-punchline">Because they're the only thing that won't run away when they show up.</div>
+        </div>
+
+        <div class="joke-module">
+            <div class="joke-setup">What's the difference between a cop and a pizza?</div>
+            <div class="joke-punchline">A pizza can feed a family of four.</div>
+        </div>
+
+        <div class="joke-module">
+            <div class="joke-setup">How many cops does it take to change a light bulb?</div>
+            <div class="joke-punchline">None – they just beat the room dark and write up a report saying it was like that when they arrived.</div>
+        </div>
+
+        <!-- Add 17 more like this... -->
+    </div>
+</body>
+</html>

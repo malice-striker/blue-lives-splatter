@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Columbine</title>
+<link rel="stylesheet" href="../style.css">
+
+<style>
+/* CENTER MODULE */
+.hub-module {
+    max-width: 520px;
+    margin: 80px auto;
+    padding: 20px;
+    background: #000;
+    border: 2px solid red;
+    box-shadow: 0 0 30px rgba(255,0,0,0.6); /* eerie glow */
+    text-align: center;
+}
+
+/* CATEGORY HEADERS */
+.hub-module h2 {
+    margin: 18px 0 10px;
+}
+
+/* BUTTON GRID */
+.hub-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+/* SMALL BUTTONS */
+.hub-module button {
+    width: 100%;
+    padding: 4px;
+    font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV HEADER -->
+ <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="goodies.html">Goodies</a></li>
+                <li><a href="funfacts.html">Facts & Logic</a></li>
+               <li><a href="organize.html">Get Involved</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<!-- CENTER MODULE -->
+<div class="page-wrap">
+    <div class="hub-module">
+
+        <!-- CRIME -->
+        <h2>Trigger Warning</h2>
+        <div class="hub-grid">
+            <button onclick="location.href='jokes.html'">Jokes</button>
+            <button onclick="location.href='rad.html'">Rad Art</button>
+            <button onclick="location.href='losers.html'">Hall of Shame</button>
+            <button onclick="location.href='bookrecs.html'">Reading Material</button>
+            <button onclick="location.href='music.html'">Songs About Cops</button>
+            <button onclick="location.href='orgs.html'">Direct Action</button>
+            <button onclick="location.href='cooldudes.html'">Smart People</button>
+        </div>
+
+    </div>
+</div>
+    
+</body>
+</html>

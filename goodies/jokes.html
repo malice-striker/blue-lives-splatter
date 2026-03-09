@@ -3,63 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <title>Cop Jokes</title>
-    <link rel="stylesheet" href="../style.css">  <!-- or /blue-lives-splatter/style.css if needed -->
+    <link rel="stylesheet" href="../style.css"> <!-- keep or fix path if 404 -->
+
     <style>
-/* Police lights: alternating red/blue glow on hover */
-.joke-module {
-    /* ... your existing styles ... */
-    overflow: visible;  /* important so glow can extend outside box */
-}
+        /* === Joke page layout === */
+        .jokes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin: 100px auto 40px;
+            max-width: 1400px;
+            padding: 0 20px;
+        }
 
-/* Blue light layer */
-.joke-module::before {
-    content: '';
-    position: absolute;
-    inset: -20px;           /* extends glow outside the box for better effect */
-    background: radial-gradient(circle at 20% 50%, rgba(0, 100, 255, 0.4) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    pointer-events: none;
-    z-index: -2;
-    filter: blur(12px);     /* soft glow */
-}
+        /* === Base joke module styling === */
+        .joke-module {
+            background: #000;
+            border: 2px solid #0044ff;
+            box-shadow: 0 0 15px rgba(0, 0, 255, 0.3);
+            padding: 20px;
+            position: relative;
+            overflow: visible;          /* critical for glow bleed */
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
 
-/* Red light layer */
-.joke-module::after {
-    content: '';
-    position: absolute;
-    inset: -20px;
-    background: radial-gradient(circle at 80% 50%, rgba(255, 40, 40, 0.4) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    pointer-events: none;
-    z-index: -1;
-    filter: blur(12px);
-}
+        .joke-module:hover {
+            box-shadow: 0 0 30px rgba(0, 0, 255, 0.6);
+            transform: translateY(-3px);
+        }
 
-.joke-module:hover::before,
-.joke-module:hover::after {
-    opacity: 1;
-}
+        /* === Punchline reveal === */
+        .joke-setup {
+            font-size: 1.2em;
+            margin: 0 0 12px 0;
+            color: #88ccff;
+        }
 
-.joke-module:hover::before {
-    animation: blue-pulse 5s infinite ease-in-out;
-}
+        .joke-punchline {
+            font-size: 1.1em;
+            color: #ffaaaa;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            margin: 0;
+        }
 
-.joke-module:hover::after {
-    animation: red-pulse 5s infinite ease-in-out 2.5s;  /* phase shift for alternation */
-}
+        .joke-module:hover .joke-punchline {
+            max-height: 300px;          /* increase if punchlines are long */
+            opacity: 1;
+            margin-top: 15px;
+        }
 
-@keyframes blue-pulse {
-    0%, 100% { opacity: 0.15; transform: scale(1.05); }
-    50%      { opacity: 0.45; transform: scale(1.12); }
-}
+        /* === Alternating red/blue police glow === */
+        .joke-module::before {
+            content: '';
+            position: absolute;
+            inset: -40px;
+            background: radial-gradient(circle at 30% 50%, rgba(0, 120, 255, 0.6) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            z-index: -2;
+            filter: blur(18px);
+        }
 
-@keyframes red-pulse {
-    0%, 100% { opacity: 0.15; transform: scale(1.05); }
-    50%      { opacity: 0.45; transform: scale(1.12); }
-}
-        </style>
+        .joke-module::after {
+            content: '';
+            position: absolute;
+            inset: -40px;
+            background: radial-gradient(circle at 70% 50%, rgba(255, 60, 60, 0.6) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(18px);
+        }
+
+        .joke-module:hover::before,
+        .joke-module:hover::after {
+            opacity: 1;
+        }
+
+        .joke-module:hover::before {
+            animation: blue-glow 5s infinite ease-in-out;
+        }
+
+        .joke-module:hover::after {
+            animation: red-glow 5s infinite ease-in-out 2.5s;  /* half-phase delay */
+        }
+
+        @keyframes blue-glow {
+            0%, 100% { opacity: 0.2; transform: scale(1.05); }
+            50%      { opacity: 0.6; transform: scale(1.18); }
+        }
+
+        @keyframes red-glow {
+            0%, 100% { opacity: 0.2; transform: scale(1.05); }
+            50%      { opacity: 0.6; transform: scale(1.18); }
+        }
+    </style>
 </head>
 <body>
     <!-- Your header nav here (copy from other pages) -->
